@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "dtms_service_master";
+
+package dummy;
+
+// The greeting service definition.
+service DummyProto {
+  // Sends a greeting
+  rpc GetDummy (DummyRequest) returns (DummyResponse);
+  rpc CreateDummy (DummyRequestCreate) returns (DummyResponse);
+}
+
+// The request message containing the user's name.
+message DummyRequest {
+  string dummy = 1;
+}
+
+message DummyRequestCreate {
+  string body = 1;
+}
+
+// The response message containing the greetings.
+message DummyResponse {
+  string message = 1;
+}

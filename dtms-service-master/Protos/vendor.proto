@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+import "Protos/common.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+option csharp_namespace = "dtms_service_master.Protos";
+
+package vendor;
+
+service VendorProto {
+  rpc Create (CreateRequest) returns (common.MutationResponse){
+    option (google.api.http) = {
+      post: "/v1/vendor/"
+      body: "*"
+    };
+  };
+
+  rpc GetAll (google.protobuf.Empty) returns (common.MutationResponse){
+    option (google.api.http) = {
+      get: "/v1/vendor/"
+    };
+  }
+
+  rpc GetOne (OptionalParamRequest) returns (common.MutationResponse){
+    // option (google.api.http) = {
+    //   get: "/v1/vendor/{id}"
+    // };
+  }
+
+  rpc DeleteOne (OptionalParamRequest) returns (common.MutationResponse){
+    // option (google.api.http) = {
+    //   get: "/v1/vendor/{id}"
+    // };
+  }
+  rpc UpdateOne (UpdateRequest) returns (common.MutationResponse){
+    // option (google.api.http) = {
+    //   get: "/v1/vendor/{id}"
+    // };
+  }
+
+}
+
+// Request
+message OptionalParamRequest {
+  optional string id = 1;
+  optional string code = 2;
+}
+
+message CreateRequest {
+  string name = 1;
+  string code = 2;
+  string address = 3;
+  string phone = 4;
+  string NPWP = 5;
+  google.protobuf.Timestamp valid_date = 6;
+  google.protobuf.Timestamp expired_date = 7;
+}
+
+message UpdateRequest{
+  string id = 1;
+  string name = 2;
+  string code = 3;
+  string address = 4;
+  string phone = 5;
+  string NPWP = 6;
+  google.protobuf.Timestamp valid_date = 7;
+  google.protobuf.Timestamp expired_date = 8;
+}
+
+// Response
+message VendorResponse{
+  string id = 1;
+  string name = 2;
+  string code = 3;
+  string address = 4;
+  string phone = 5;
+  string NPWP = 6;
+  google.protobuf.Timestamp valid_date = 7;
+  google.protobuf.Timestamp expired_date = 8;
+}
+
+message VendorsResponse {
+  repeated VendorResponse vendors = 1;
+}
+
+// message GetAllResponse {
+// 	bool success = 1;
+// 	oneof result {
+// 		string message = 2;
+// 		common.ErrorMessages errors = 3;
+// 	}
+// 	optional int32 error_code = 4;
+// 	AllVendors data = 5;
+// }
+

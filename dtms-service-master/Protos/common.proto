@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+option csharp_namespace = "dtms_service_master.Protos";
+
+package common;
+
+message ErrorMessage {
+	string field = 1;
+	string messages = 2;
+}
+
+message ErrorMessages {
+	repeated ErrorMessage error_list = 1;
+}
+
+message MutationResponse {
+	bool success = 1;
+	oneof result {
+		string message = 2;
+		ErrorMessages errors = 3;
+	}
+	optional int32 error_code = 4;
+	google.protobuf.Any data = 5;
+}
+
+message QueryResponse {
+	bool success = 1;
+	oneof result {
+		string message = 2;
+		ErrorMessages errors = 3;
+	}
+	string rows = 4;
+	optional int32 error_code = 5;
+	google.protobuf.Any data = 6;
+}
